@@ -13,7 +13,7 @@ dist-ssr
 *.local
 package-lock.json
 .env
-
+mern-chat-app.code-workspace
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
