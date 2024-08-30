@@ -9,6 +9,7 @@ import userRoutes from "./routes/user.routes.js";
 import cors from "cors";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
+import { error } from "console";
 
 dotenv.config();
 
@@ -46,7 +47,13 @@ app.get('*', function (_, res) {
   });
 });
 
-server.listen(PORT, () => {
-	connectToMongoDB();
-	console.log(`Server Running on port ${PORT}`);
-});
+
+connectToMongoDB()
+.then(()=>{
+  server.listen(PORT, () => {
+    console.log(`Server Running on port ${PORT}`);
+  });
+})
+.catch(error,()=>{
+  console.error(error);
+})
