@@ -15,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (authUser) {
-			const socket = io("ws://blab-chat.vercel.app", {
+			const socket = io("https://blab-chat.vercel.app", {
 				query: {
 					userId: authUser._id,
 				},
