@@ -11,19 +11,7 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
 
 dotenv.config();
-// To serve react static files (Frontend)
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "./client/dist")));
-app.use(express.static(path.join(__dirname, "./")));
 
-// Serve the React app for all other routes
-app.get('*', function (_, res) {
-  res.sendFile(path.join(__dirname, "./client/dist/index.html"), function(err) {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
 
 // PORT should be assigned after calling dotenv.config() because we need to access the env variables. Didn't realize while recording the video. Sorry for the confusion.
 const PORT = process.env.PORT || 5000;
@@ -38,7 +26,19 @@ app.use("/api/users", userRoutes);
 
 
 
+// To serve react static files (Frontend)
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "./client/dist")));
+app.use(express.static(path.join(__dirname, "./")));
 
+// Serve the React app for all other routes
+app.get('*', function (_, res) {
+  res.sendFile(path.join(__dirname, "./client/dist/index.html"), function(err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 server.listen(PORT, () => {
 	connectToMongoDB();
